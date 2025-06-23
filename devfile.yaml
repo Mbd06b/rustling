@@ -20,7 +20,7 @@ projects:
 components:
   - name: rust-dev
     container:
-      image: harbor.ethosengine.com/devspaces/rust-dev:latest
+      image: harbor.ethosengine.com/devspaces/rust-nix-dev:latest
       memoryLimit: 8Gi
       memoryRequest: 2Gi
       cpuLimit: '4'
