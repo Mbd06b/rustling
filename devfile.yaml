@@ -11,6 +11,12 @@ metadata:
   language: rust
   version: 1.0.0
 
+projects:
+  - name: rustling
+    git:
+      remotes:
+        origin: https://github.com/Mbd06b/rustling.git
+
 components:
   - name: rust-dev
     container:
