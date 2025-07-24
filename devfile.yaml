@@ -16,7 +16,7 @@ projects:
     git:
       remotes:
         origin: https://github.com/Mbd06b/rustling.git
-
+`
 components:
   - name: rust-dev
     container:
@@ -32,6 +32,18 @@ components:
           value: '1'
         - name: USER
           value: user
+        - name: XDG_CACHE_HOME
+          value: /tmp/nix-cache
+        - name: XDG_DATA_HOME
+          value: /tmp/nix-data
+        - name: XDG_STATE_HOME
+          value: /tmp/nix-state
+        - name: XDG_CONFIG_HOME
+          value: /tmp/nix-config
+        - name: LANG
+          value: en_US.UTF-8
+        - name: LC_ALL
+          value: en_US.UTF-8
       endpoints:
         - name: http-8080
           targetPort: 8080
