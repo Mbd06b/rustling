@@ -16,7 +16,6 @@ projects:
     git:
       remotes:
         origin: https://github.com/Mbd06b/rustling.git
-`
 components:
   - name: rust-dev
     container:
