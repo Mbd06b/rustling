@@ -33,6 +33,8 @@ components:
           value: '1'
         - name: USER
           value: user
+        # XDG directories now use /tmp (ephemeral) to avoid consuming PVC space
+        # This matches the container's bashrc configuration
         - name: XDG_CACHE_HOME
           value: /tmp/nix-cache
         - name: XDG_DATA_HOME
@@ -41,6 +43,8 @@ components:
           value: /tmp/nix-state
         - name: XDG_CONFIG_HOME
           value: /tmp/nix-config
+        - name: NPM_CONFIG_CACHE
+          value: /tmp/nix-cache/npm
         - name: LANG
           value: en_US.UTF-8
         - name: LC_ALL
@@ -63,13 +67,13 @@ components:
 
   - name: cargo-cache
     volume:
-      size: 5Gi
+      size: 3Gi
   - name: rustup-cache
     volume:
       size: 2Gi
   - name: nix-store
     volume:
-      size: 10Gi
+      size: 15Gi
 
 commands:
   - id: rust-init-project
@@ -133,3 +137,17 @@ commands:
       commandLine: |
         git clone https://github.com/rust-lang/book.git rust-book-examples
         echo "Examples downloaded to rust-book-examples/"
+
+  - id: nix-status
+    exec:
+      label: "Check Nix/Rust Status and Storage"
+      component: rust-dev
+      workingDir: ${PROJECT_SOURCE}
+      commandLine: nix-status
+
+  - id: nix-clean
+    exec:
+      label: "Run Nix Garbage Collection"
+      component: rust-dev
+      workingDir: ${PROJECT_SOURCE}
+      commandLine: nix-clean
