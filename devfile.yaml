@@ -28,7 +28,7 @@ components:
       sourceMapping: /projects
       env:
         - name: CLAUDE_CONFIG_DIR
-          value: /tmp/claude-config
+          value: /projects/.claude-config
         - name: RUST_BACKTRACE
           value: '1'
         - name: USER
@@ -49,9 +49,40 @@ components:
           value: en_US.UTF-8
         - name: LC_ALL
           value: en_US.UTF-8
+        - name: NIX_CONFIG
+          value: |
+            experimental-features = nix-command flakes
+            sandbox = false
+            substituters = https://cache.nixos.org https://holochain-ci.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= holochain-ci.cachix.org-1:5IUSkZc0aoRS53rfkvH9Kid40NpyjwCMCzwRTXy+QN8=
+            auto-optimise-store = true
+            min-free = 5368709120
+            max-free = 10737418240
+            keep-outputs = false
+            keep-derivations = false
       endpoints:
-        - name: http-8080
+        - name: ui
+          targetPort: 5173
+          exposure: public
+          protocol: https
+        - name: playground
           targetPort: 8080
+          exposure: public
+          protocol: https
+        - name: hc-admin-agent1
+          targetPort: 8888
+          exposure: public
+          protocol: https
+        - name: hc-app-agent1
+          targetPort: 8890
+          exposure: public
+          protocol: https
+        - name: hc-admin-agent2
+          targetPort: 8892
+          exposure: public
+          protocol: https
+        - name: hc-app-agent2
+          targetPort: 8891
           exposure: public
           protocol: https
         - name: debug-5005
