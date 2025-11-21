@@ -21,6 +21,8 @@ fn main() {
 
     // Don't change this line.
     let cost = total_cost(pretend_user_input)?;
+    
+    Ok(cost);
 
     if cost > tokens {
         println!("You can't afford that many!");
